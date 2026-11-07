@@ -22,10 +22,10 @@
 
 | Role | Name | Enrollment No. | GitHub Username |
 |------|------|----------------|-----------------|
-| Group Lead | | | |
-| Member 2 | | | |
-| Member 3 | | | |
-| Member 4 | | | |
+| Group Lead | Pranav Tyagi | 2501010695 | PranavTyagi-dev |
+| Member 2 | Somya Aggarwal | 2501010454 | somya187 |
+| Member 3 | vinayak Kulshrestha | 2501010506 | vinayak-kulshrestha |
+| Member 4 | Utkarsh Patidar | 2501010487 | Utkarsh12072007 |
 
 **Team No.:** ____ · **Section:** ____ · **Repository URL:** ____
 

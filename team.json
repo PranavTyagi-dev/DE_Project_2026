@@ -1,0 +1,11 @@
+{
+  "team_number": "",
+  "group_lead": { "name": "Pranav Tyagi", "enrollment_no": "2501010695", "github": "PranavTyagi-dev" },
+  "members": [
+    { "name": "Utkarsh Patidar", "enrollment_no": "2501010487", "github": "Utkarsh12072007" },
+    { "name": "Somya Aggarwal", "enrollment_no": "2501010454", "github": "somya187" },
+    { "name": "vinayak Kulshrestha", "enrollment_no": "2501010506", "github": "vinayak-kulshrestha" }
+  ],
+  "postgres_version": "",
+  "laptop_used_for_benchmarks": ""
+}
