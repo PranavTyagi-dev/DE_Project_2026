@@ -1,0 +1,51 @@
+=== R03 run 1 ===
+Sort  (cost=4398.69..4398.73 rows=15 width=16) (actual time=5.124..5.711 rows=14.00 loops=1)
+  Sort Key: connected_at DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=1459
+  ->  Gather  (cost=1000.00..4398.40 rows=15 width=16) (actual time=0.860..5.700 rows=14.00 loops=1)
+        Workers Planned: 1
+        Workers Launched: 1
+        Buffers: shared hit=1456
+        ->  Parallel Seq Scan on connections c  (cost=0.00..3396.90 rows=9 width=16) (actual time=1.790..3.905 rows=7.00 loops=2)
+              Filter: ((member_a = 1023) OR (member_b = 1023))
+              Rows Removed by Filter: 109976
+              Buffers: shared hit=1456
+Planning:
+  Buffers: shared hit=97 dirtied=1
+Planning Time: 0.406 ms
+Execution Time: 5.730 ms
+=== R03 run 2 ===
+Sort  (cost=4398.69..4398.73 rows=15 width=16) (actual time=4.450..4.965 rows=14.00 loops=1)
+  Sort Key: connected_at DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=1459
+  ->  Gather  (cost=1000.00..4398.40 rows=15 width=16) (actual time=0.844..4.954 rows=14.00 loops=1)
+        Workers Planned: 1
+        Workers Launched: 1
+        Buffers: shared hit=1456
+        ->  Parallel Seq Scan on connections c  (cost=0.00..3396.90 rows=9 width=16) (actual time=1.793..3.581 rows=7.00 loops=2)
+              Filter: ((member_a = 1023) OR (member_b = 1023))
+              Rows Removed by Filter: 109976
+              Buffers: shared hit=1456
+Planning:
+  Buffers: shared hit=95
+Planning Time: 0.162 ms
+Execution Time: 4.984 ms
+=== R03 run 3 ===
+Sort  (cost=4398.69..4398.73 rows=15 width=16) (actual time=4.390..4.920 rows=14.00 loops=1)
+  Sort Key: connected_at DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=1459
+  ->  Gather  (cost=1000.00..4398.40 rows=15 width=16) (actual time=0.825..4.909 rows=14.00 loops=1)
+        Workers Planned: 1
+        Workers Launched: 1
+        Buffers: shared hit=1456
+        ->  Parallel Seq Scan on connections c  (cost=0.00..3396.90 rows=9 width=16) (actual time=1.787..3.554 rows=7.00 loops=2)
+              Filter: ((member_a = 1023) OR (member_b = 1023))
+              Rows Removed by Filter: 109976
+              Buffers: shared hit=1456
+Planning:
+  Buffers: shared hit=95
+Planning Time: 0.171 ms
+Execution Time: 4.938 ms

@@ -1,0 +1,31 @@
+query_id,type,avg_ms,median_ms,min_ms,max_ms,scan_nodes
+R01,READ,5.328,4.987,4.460,6.538,Index Scan using members_pkey on members | Seq Scan on positions | Index Scan using companies_pkey on companies
+R02,READ,3.152,3.102,3.072,3.282,Seq Scan on positions | Index Scan using companies_pkey on companies
+R03,READ,5.217,4.984,4.938,5.730,Seq Scan on connections
+R04,READ,7.954,7.832,7.791,8.238,Seq Scan on connections
+R05,READ,26.548,26.431,26.234,26.978,Seq Scan on connections | Bitmap Heap Scan on connections | Bitmap Index Scan on pk_connections
+R06,READ,5.497,5.494,5.470,5.526,Seq Scan on jobs | Index Scan using companies_pkey on companies
+R07,READ,4.929,4.909,4.869,5.009,Seq Scan on job_skills | Seq Scan on jobs | Index Only Scan using pk_member_skills on member_skills
+R08,READ,0.235,0.099,0.088,0.519,Index Scan using uq_job_member_application on applications
+R09,READ,4.045,4.039,3.975,4.120,Seq Scan on applications | Index Scan using jobs_pkey on jobs | Index Scan using companies_pkey on companies
+R10,READ,2.325,2.324,2.292,2.360,Seq Scan on invitations | Index Scan using members_pkey on members
+R11,READ,4.492,4.238,4.223,5.014,Seq Scan on profile_views
+R12,READ,4.903,4.893,4.883,4.932,Seq Scan on positions | Seq Scan on companies
+R13,READ,19.137,18.953,18.553,19.904,Seq Scan on members | Seq Scan on profile_views
+R14,READ,8.490,8.595,8.081,8.795,Seq Scan on applications | Seq Scan on jobs | Seq Scan on companies
+R15,READ,8.012,8.026,7.810,8.200,Seq Scan on jobs | Index Only Scan using pk_job_skills on job_skills | Seq Scan on skills
+R16,READ,1.991,1.680,1.632,2.661,Seq Scan on jobs | Seq Scan on cities
+R17,READ,33.983,32.088,32.080,37.780,Seq Scan on positions | Seq Scan on companies | Index Scan using companies_pkey on companies
+R18,READ,8.072,7.926,7.463,8.826,Seq Scan on member_skills | Seq Scan on skills | Index Scan using members_pkey on members
+R19,READ,198.690,197.861,197.758,200.450,Seq Scan on companies | Seq Scan on jobs | Index Scan using uq_job_member_application on applications
+R20,READ,6.212,6.313,6.010,6.314,Seq Scan on applications
+R21,READ,78.136,78.448,76.073,79.887,Seq Scan on member_skills | Seq Scan on skills
+R22,READ,30.707,31.465,29.051,31.604,Seq Scan on applications
+R23,READ,8.926,8.979,8.759,9.039,Seq Scan on members
+R24,READ,8.760,8.930,8.406,8.943,Seq Scan on invitations | Seq Scan on members
+R25,READ,30.901,29.380,29.096,34.228,Seq Scan on positions
+W01,WRITE,0.842,0.516,0.494,1.517,(no scan)
+W02,WRITE,2.551,2.499,2.463,2.690,Seq Scan on invitations | Index Scan using invitations_pkey on invitations
+W03,WRITE,2.712,2.688,2.658,2.791,Seq Scan on invitations | Index Scan using invitations_pkey on invitations
+W04,WRITE,2.894,2.597,2.510,3.575,Seq Scan on jobs
+W05,WRITE,3.519,3.044,2.895,4.619,Seq Scan on jobs | Seq Scan on companies | Index Scan using uq_job_member_application on applications

@@ -1,0 +1,57 @@
+=== R02 run 1 ===
+Sort  (cost=2386.17..2386.17 rows=3 width=52) (actual time=3.255..3.256 rows=4.00 loops=1)
+  Sort Key: p.start_date DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=1127
+  ->  Nested Loop  (cost=0.28..2386.14 rows=3 width=52) (actual time=0.088..3.247 rows=4.00 loops=1)
+        Buffers: shared hit=1124
+        ->  Seq Scan on positions p  (cost=0.00..2361.25 rows=3 width=41) (actual time=0.084..3.231 rows=4.00 loops=1)
+              Filter: (member_id = 1023)
+              Rows Removed by Filter: 99936
+              Buffers: shared hit=1112
+        ->  Index Scan using companies_pkey on companies c  (cost=0.28..8.29 rows=1 width=27) (actual time=0.003..0.003 rows=1.00 loops=4)
+              Index Cond: (company_id = p.company_id)
+              Index Searches: 4
+              Buffers: shared hit=12
+Planning:
+  Buffers: shared hit=225
+Planning Time: 0.334 ms
+Execution Time: 3.282 ms
+=== R02 run 2 ===
+Sort  (cost=2386.17..2386.17 rows=3 width=52) (actual time=3.045..3.045 rows=4.00 loops=1)
+  Sort Key: p.start_date DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=1127
+  ->  Nested Loop  (cost=0.28..2386.14 rows=3 width=52) (actual time=0.095..3.037 rows=4.00 loops=1)
+        Buffers: shared hit=1124
+        ->  Seq Scan on positions p  (cost=0.00..2361.25 rows=3 width=41) (actual time=0.092..3.028 rows=4.00 loops=1)
+              Filter: (member_id = 1023)
+              Rows Removed by Filter: 99936
+              Buffers: shared hit=1112
+        ->  Index Scan using companies_pkey on companies c  (cost=0.28..8.29 rows=1 width=27) (actual time=0.002..0.002 rows=1.00 loops=4)
+              Index Cond: (company_id = p.company_id)
+              Index Searches: 4
+              Buffers: shared hit=12
+Planning:
+  Buffers: shared hit=221
+Planning Time: 0.304 ms
+Execution Time: 3.072 ms
+=== R02 run 3 ===
+Sort  (cost=2386.17..2386.17 rows=3 width=52) (actual time=3.076..3.077 rows=4.00 loops=1)
+  Sort Key: p.start_date DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=1127
+  ->  Nested Loop  (cost=0.28..2386.14 rows=3 width=52) (actual time=0.092..3.068 rows=4.00 loops=1)
+        Buffers: shared hit=1124
+        ->  Seq Scan on positions p  (cost=0.00..2361.25 rows=3 width=41) (actual time=0.089..3.058 rows=4.00 loops=1)
+              Filter: (member_id = 1023)
+              Rows Removed by Filter: 99936
+              Buffers: shared hit=1112
+        ->  Index Scan using companies_pkey on companies c  (cost=0.28..8.29 rows=1 width=27) (actual time=0.002..0.002 rows=1.00 loops=4)
+              Index Cond: (company_id = p.company_id)
+              Index Searches: 4
+              Buffers: shared hit=12
+Planning:
+  Buffers: shared hit=221
+Planning Time: 0.320 ms
+Execution Time: 3.102 ms
