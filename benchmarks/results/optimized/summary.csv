@@ -1,0 +1,31 @@
+query_id,type,avg_ms,median_ms,min_ms,max_ms,scan_nodes
+R01,READ,0.037,0.037,0.033,0.041,Index Scan using members_pkey on members | Index Scan using idx_positions_member_start on positions | Index Scan using companies_pkey on companies
+R02,READ,0.030,0.029,0.029,0.033,Index Scan using idx_positions_member_start on positions | Index Scan using companies_pkey on companies
+R03,READ,0.044,0.041,0.040,0.051,Index Scan using pk_connections on connections | Index Only Scan using idx_connections_member_b on connections
+R04,READ,0.063,0.060,0.059,0.069,Index Only Scan using pk_connections on connections | Index Only Scan using idx_connections_member_b on connections
+R05,READ,0.268,0.259,0.250,0.295,Bitmap Heap Scan on connections | Bitmap Index Scan on pk_connections | Bitmap Index Scan on idx_connections_member_b
+R06,READ,0.141,0.138,0.137,0.149,Bitmap Heap Scan on jobs | Bitmap Index Scan on idx_jobs_open_city_posted | Bitmap Index Scan on idx_jobs_open_remote_posted | Index Scan using companies_pkey on companies
+R07,READ,4.393,4.415,4.317,4.448,Seq Scan on job_skills | Index Scan using idx_jobs_open_closes_at on jobs | Index Only Scan using pk_member_skills on member_skills
+R08,READ,0.063,0.064,0.057,0.068,Index Only Scan using idx_applications_job_status on applications
+R09,READ,0.066,0.063,0.062,0.073,Bitmap Heap Scan on applications | Bitmap Index Scan on idx_applications_member_applied | Index Scan using jobs_pkey on jobs | Index Scan using companies_pkey on companies
+R10,READ,0.031,0.029,0.029,0.035,Index Scan using idx_invitations_pending_recipient_sent on invitations | Index Scan using members_pkey on members
+R11,READ,0.060,0.055,0.054,0.070,Index Only Scan using idx_profile_views_viewed_time on profile_views
+R12,READ,0.199,0.199,0.182,0.215,Index Scan using idx_companies_name on companies | Bitmap Heap Scan on positions | Bitmap Index Scan on idx_positions_current_company
+R13,READ,18.534,18.211,18.051,19.339,Seq Scan on profile_views | Seq Scan on members
+R14,READ,3.430,3.351,3.346,3.594,Bitmap Heap Scan on applications | Bitmap Index Scan on idx_applications_hired_status_updated | Seq Scan on jobs | Seq Scan on companies
+R15,READ,8.492,8.531,8.358,8.588,Seq Scan on jobs | Index Only Scan using pk_job_skills on job_skills | Seq Scan on skills
+R16,READ,1.579,1.558,1.554,1.626,Seq Scan on jobs | Seq Scan on cities
+R17,READ,34.143,33.954,33.601,34.874,Index Scan using idx_positions_member_start on positions | Index Scan using idx_companies_name on companies | Index Scan using companies_pkey on companies
+R18,READ,3.035,3.000,2.981,3.123,Seq Scan on skills | Bitmap Heap Scan on member_skills | Bitmap Index Scan on idx_member_skills_skill_endorsements | Index Scan using members_pkey on members
+R19,READ,5.669,5.514,5.422,6.070,Seq Scan on companies | Index Only Scan using idx_jobs_company_status on jobs | Bitmap Heap Scan on jobs | Bitmap Index Scan on idx_jobs_company_status | Index Scan using idx_applications_job_status on applications
+R20,READ,6.323,6.276,6.268,6.426,Seq Scan on applications
+R21,READ,43.376,40.926,39.930,49.273,Index Only Scan using idx_member_skills_skill_endorsements on member_skills | Index Scan using skills_pkey on skills
+R22,READ,8.562,7.765,7.643,10.278,Index Scan using idx_applications_applied_at on applications
+R23,READ,0.025,0.025,0.020,0.030,Bitmap Heap Scan on members | Bitmap Index Scan on idx_members_lower_email
+R24,READ,9.019,9.045,8.933,9.079,Seq Scan on invitations | Seq Scan on members
+R25,READ,31.537,31.451,31.253,31.907,Index Scan using idx_positions_member_start on positions
+W01,WRITE,0.697,0.538,0.522,1.030,(no scan)
+W02,WRITE,0.280,0.132,0.131,0.577,Index Only Scan using idx_invitations_pending_recipient_id on invitations | Index Scan using invitations_pkey on invitations
+W03,WRITE,0.383,0.315,0.308,0.527,Index Only Scan using idx_invitations_pending_recipient_id on invitations | Index Scan using invitations_pkey on invitations
+W04,WRITE,2.026,2.026,1.747,2.305,Index Scan using idx_jobs_open_closes_at on jobs
+W05,WRITE,9.613,1.853,1.784,25.202,Index Scan using idx_companies_name on companies | Bitmap Heap Scan on jobs | Bitmap Index Scan on idx_jobs_company_status | Index Scan using idx_applications_applied_old on applications

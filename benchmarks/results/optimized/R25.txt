@@ -1,0 +1,72 @@
+=== R25 run 1 ===
+Limit  (cost=12930.78..12931.03 rows=100 width=20) (actual time=31.879..31.884 rows=100 loops=1)
+  Buffers: shared hit=2862
+  ->  Sort  (cost=12930.78..13014.06 rows=33313 width=20) (actual time=31.878..31.880 rows=100 loops=1)
+        Sort Key: ((t.start_date - t.prev_end)) DESC, t.member_id
+        Sort Method: top-N heapsort  Memory: 32kB
+        Buffers: shared hit=2862
+        ->  Subquery Scan on t  (cost=0.60..11657.58 rows=33313 width=20) (actual time=0.029..31.498 rows=6606 loops=1)
+              Filter: ((t.start_date - t.prev_end) > 182)
+              Rows Removed by Filter: 93334
+              Buffers: shared hit=2856
+              ->  WindowAgg  (cost=0.60..10075.20 rows=99940 width=16) (actual time=0.023..29.161 rows=99940 loops=1)
+                    Buffers: shared hit=2856
+                    ->  Incremental Sort  (cost=0.60..8326.25 rows=99940 width=16) (actual time=0.018..14.725 rows=99940 loops=1)
+                          Sort Key: positions.member_id, positions.start_date
+                          Presorted Key: positions.member_id
+                          Full-sort Groups: 3001  Sort Method: quicksort  Average Memory: 26kB  Peak Memory: 26kB
+                          Buffers: shared hit=2856
+                          ->  Index Scan using idx_positions_member_start on positions  (cost=0.42..5620.70 rows=99940 width=16) (actual time=0.006..7.476 rows=99940 loops=1)
+                                Buffers: shared hit=2853
+Planning:
+  Buffers: shared hit=129
+Planning Time: 0.208 ms
+Execution Time: 31.907 ms
+=== R25 run 2 ===
+Limit  (cost=12930.78..12931.03 rows=100 width=20) (actual time=31.424..31.430 rows=100 loops=1)
+  Buffers: shared hit=2862
+  ->  Sort  (cost=12930.78..13014.06 rows=33313 width=20) (actual time=31.424..31.426 rows=100 loops=1)
+        Sort Key: ((t.start_date - t.prev_end)) DESC, t.member_id
+        Sort Method: top-N heapsort  Memory: 32kB
+        Buffers: shared hit=2862
+        ->  Subquery Scan on t  (cost=0.60..11657.58 rows=33313 width=20) (actual time=0.025..31.072 rows=6606 loops=1)
+              Filter: ((t.start_date - t.prev_end) > 182)
+              Rows Removed by Filter: 93334
+              Buffers: shared hit=2856
+              ->  WindowAgg  (cost=0.60..10075.20 rows=99940 width=16) (actual time=0.020..28.769 rows=99940 loops=1)
+                    Buffers: shared hit=2856
+                    ->  Incremental Sort  (cost=0.60..8326.25 rows=99940 width=16) (actual time=0.016..14.346 rows=99940 loops=1)
+                          Sort Key: positions.member_id, positions.start_date
+                          Presorted Key: positions.member_id
+                          Full-sort Groups: 3001  Sort Method: quicksort  Average Memory: 26kB  Peak Memory: 26kB
+                          Buffers: shared hit=2856
+                          ->  Index Scan using idx_positions_member_start on positions  (cost=0.42..5620.70 rows=99940 width=16) (actual time=0.005..7.329 rows=99940 loops=1)
+                                Buffers: shared hit=2853
+Planning:
+  Buffers: shared hit=129
+Planning Time: 0.197 ms
+Execution Time: 31.451 ms
+=== R25 run 3 ===
+Limit  (cost=12930.78..12931.03 rows=100 width=20) (actual time=31.225..31.230 rows=100 loops=1)
+  Buffers: shared hit=2862
+  ->  Sort  (cost=12930.78..13014.06 rows=33313 width=20) (actual time=31.225..31.227 rows=100 loops=1)
+        Sort Key: ((t.start_date - t.prev_end)) DESC, t.member_id
+        Sort Method: top-N heapsort  Memory: 32kB
+        Buffers: shared hit=2862
+        ->  Subquery Scan on t  (cost=0.60..11657.58 rows=33313 width=20) (actual time=0.027..30.870 rows=6606 loops=1)
+              Filter: ((t.start_date - t.prev_end) > 182)
+              Rows Removed by Filter: 93334
+              Buffers: shared hit=2856
+              ->  WindowAgg  (cost=0.60..10075.20 rows=99940 width=16) (actual time=0.021..28.576 rows=99940 loops=1)
+                    Buffers: shared hit=2856
+                    ->  Incremental Sort  (cost=0.60..8326.25 rows=99940 width=16) (actual time=0.017..14.308 rows=99940 loops=1)
+                          Sort Key: positions.member_id, positions.start_date
+                          Presorted Key: positions.member_id
+                          Full-sort Groups: 3001  Sort Method: quicksort  Average Memory: 26kB  Peak Memory: 26kB
+                          Buffers: shared hit=2856
+                          ->  Index Scan using idx_positions_member_start on positions  (cost=0.42..5620.70 rows=99940 width=16) (actual time=0.005..7.358 rows=99940 loops=1)
+                                Buffers: shared hit=2853
+Planning:
+  Buffers: shared hit=129
+Planning Time: 0.193 ms
+Execution Time: 31.253 ms

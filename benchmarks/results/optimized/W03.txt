@@ -1,0 +1,75 @@
+=== W03 run 1 ===
+Insert on connections  (cost=8.60..16.62 rows=0 width=0) (actual time=0.303..0.303 rows=0 loops=1)
+  Conflict Resolution: NOTHING
+  Tuples Inserted: 1
+  Conflicting Tuples: 0
+  Buffers: shared hit=63 read=1 dirtied=1
+  InitPlan 2 (returns $1)
+    ->  Result  (cost=8.30..8.31 rows=1 width=8) (actual time=0.013..0.013 rows=1 loops=1)
+          Buffers: shared hit=6
+          InitPlan 1 (returns $0)
+            ->  Limit  (cost=0.28..8.30 rows=1 width=8) (actual time=0.012..0.012 rows=1 loops=1)
+                  Buffers: shared hit=6
+                  ->  Index Only Scan using idx_invitations_pending_recipient_id on invitations invitations_1  (cost=0.28..8.30 rows=1 width=8) (actual time=0.012..0.012 rows=1 loops=1)
+                        Index Cond: ((recipient_id = 1023) AND (invitation_id IS NOT NULL))
+                        Heap Fetches: 1
+                        Buffers: shared hit=6
+  ->  Index Scan using invitations_pkey on invitations  (cost=0.29..8.31 rows=1 width=24) (actual time=0.018..0.021 rows=1 loops=1)
+        Index Cond: (invitation_id = $1)
+        Buffers: shared hit=11
+Planning:
+  Buffers: shared hit=165
+Planning Time: 0.250 ms
+Trigger for constraint fk_connections_member_a: time=0.158 calls=1
+Trigger for constraint fk_connections_member_b: time=0.022 calls=1
+Execution Time: 0.527 ms
+=== W03 run 2 ===
+Insert on connections  (cost=8.60..16.62 rows=0 width=0) (actual time=0.091..0.091 rows=0 loops=1)
+  Conflict Resolution: NOTHING
+  Tuples Inserted: 1
+  Conflicting Tuples: 0
+  Buffers: shared hit=63 dirtied=1
+  InitPlan 2 (returns $1)
+    ->  Result  (cost=8.30..8.31 rows=1 width=8) (actual time=0.011..0.011 rows=1 loops=1)
+          Buffers: shared hit=6
+          InitPlan 1 (returns $0)
+            ->  Limit  (cost=0.28..8.30 rows=1 width=8) (actual time=0.010..0.010 rows=1 loops=1)
+                  Buffers: shared hit=6
+                  ->  Index Only Scan using idx_invitations_pending_recipient_id on invitations invitations_1  (cost=0.28..8.30 rows=1 width=8) (actual time=0.009..0.009 rows=1 loops=1)
+                        Index Cond: ((recipient_id = 1023) AND (invitation_id IS NOT NULL))
+                        Heap Fetches: 1
+                        Buffers: shared hit=6
+  ->  Index Scan using invitations_pkey on invitations  (cost=0.29..8.31 rows=1 width=24) (actual time=0.016..0.016 rows=1 loops=1)
+        Index Cond: (invitation_id = $1)
+        Buffers: shared hit=9
+Planning:
+  Buffers: shared hit=165
+Planning Time: 0.255 ms
+Trigger for constraint fk_connections_member_a: time=0.152 calls=1
+Trigger for constraint fk_connections_member_b: time=0.021 calls=1
+Execution Time: 0.308 ms
+=== W03 run 3 ===
+Insert on connections  (cost=8.60..16.62 rows=0 width=0) (actual time=0.093..0.093 rows=0 loops=1)
+  Conflict Resolution: NOTHING
+  Tuples Inserted: 1
+  Conflicting Tuples: 0
+  Buffers: shared hit=63 dirtied=1
+  InitPlan 2 (returns $1)
+    ->  Result  (cost=8.30..8.31 rows=1 width=8) (actual time=0.010..0.010 rows=1 loops=1)
+          Buffers: shared hit=6
+          InitPlan 1 (returns $0)
+            ->  Limit  (cost=0.28..8.30 rows=1 width=8) (actual time=0.010..0.010 rows=1 loops=1)
+                  Buffers: shared hit=6
+                  ->  Index Only Scan using idx_invitations_pending_recipient_id on invitations invitations_1  (cost=0.28..8.30 rows=1 width=8) (actual time=0.009..0.009 rows=1 loops=1)
+                        Index Cond: ((recipient_id = 1023) AND (invitation_id IS NOT NULL))
+                        Heap Fetches: 1
+                        Buffers: shared hit=6
+  ->  Index Scan using invitations_pkey on invitations  (cost=0.29..8.31 rows=1 width=24) (actual time=0.015..0.016 rows=1 loops=1)
+        Index Cond: (invitation_id = $1)
+        Buffers: shared hit=9
+Planning:
+  Buffers: shared hit=165
+Planning Time: 0.257 ms
+Trigger for constraint fk_connections_member_a: time=0.158 calls=1
+Trigger for constraint fk_connections_member_b: time=0.020 calls=1
+Execution Time: 0.315 ms

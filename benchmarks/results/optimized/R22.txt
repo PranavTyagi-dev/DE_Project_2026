@@ -1,0 +1,27 @@
+=== R22 run 1 ===
+Limit  (cost=3635.98..3636.89 rows=25 width=40) (actual time=10.267..10.269 rows=25 loops=1)
+  Buffers: shared hit=1275 read=276 written=37
+  ->  Index Scan Backward using idx_applications_applied_at on applications  (cost=0.42..5453.18 rows=149984 width=40) (actual time=0.014..8.654 rows=100025 loops=1)
+        Buffers: shared hit=1275 read=276 written=37
+Planning:
+  Buffers: shared hit=209
+Planning Time: 0.300 ms
+Execution Time: 10.278 ms
+=== R22 run 2 ===
+Limit  (cost=3635.98..3636.89 rows=25 width=40) (actual time=7.632..7.634 rows=25 loops=1)
+  Buffers: shared hit=1551
+  ->  Index Scan Backward using idx_applications_applied_at on applications  (cost=0.42..5453.18 rows=149984 width=40) (actual time=0.008..5.977 rows=100025 loops=1)
+        Buffers: shared hit=1551
+Planning:
+  Buffers: shared hit=209
+Planning Time: 0.293 ms
+Execution Time: 7.643 ms
+=== R22 run 3 ===
+Limit  (cost=3635.98..3636.89 rows=25 width=40) (actual time=7.754..7.756 rows=25 loops=1)
+  Buffers: shared hit=1551
+  ->  Index Scan Backward using idx_applications_applied_at on applications  (cost=0.42..5453.18 rows=149984 width=40) (actual time=0.010..6.117 rows=100025 loops=1)
+        Buffers: shared hit=1551
+Planning:
+  Buffers: shared hit=209
+Planning Time: 0.293 ms
+Execution Time: 7.765 ms
