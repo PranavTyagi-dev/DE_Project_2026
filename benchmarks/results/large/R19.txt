@@ -1,0 +1,120 @@
+=== R19 run 1 ===
+Sort  (cost=1456460.96..1456470.91 rows=3980 width=45) (actual time=904.505..904.609 rows=4000.00 loops=1)
+  Sort Key: ((SubPlan 2)) DESC
+  Sort Method: quicksort  Memory: 350kB
+  Buffers: shared hit=220614 read=218920 dirtied=312 written=241
+  ->  Seq Scan on companies c  (cost=0.00..1456222.99 rows=3980 width=45) (actual time=38.557..903.920 rows=4000.00 loops=1)
+        Filter: ((industry)::text = 'IT Services'::text)
+        Rows Removed by Filter: 36000
+        Buffers: shared hit=220611 read=218920 dirtied=312 written=241
+        SubPlan 1
+          ->  Aggregate  (cost=8.44..8.45 rows=1 width=8) (actual time=0.002..0.002 rows=1.00 loops=4000)
+                Buffers: shared hit=11941 read=1544 written=1
+                ->  Index Only Scan using idx_jobs_company_status on jobs j  (cost=0.42..8.44 rows=1 width=0) (actual time=0.002..0.002 rows=0.89 loops=4000)
+                      Index Cond: ((company_id = c.company_id) AND (status = 'OPEN'::text))
+                      Heap Fetches: 1485
+                      Index Searches: 4000
+                      Buffers: shared hit=11941 read=1544 written=1
+        SubPlan 2
+          ->  Aggregate  (cost=357.16..357.17 rows=1 width=8) (actual time=0.223..0.223 rows=1.00 loops=4000)
+                Buffers: shared hit=208670 read=216824 dirtied=312 written=240
+                ->  Nested Loop  (cost=4.94..357.14 rows=5 width=0) (actual time=0.204..0.223 rows=4.06 loops=4000)
+                      Buffers: shared hit=208670 read=216824 dirtied=312 written=240
+                      ->  Bitmap Heap Scan on jobs j_1  (cost=4.51..47.12 rows=11 width=8) (actual time=0.007..0.013 rows=7.34 loops=4000)
+                            Recheck Cond: (company_id = c.company_id)
+                            Heap Blocks: exact=32655
+                            Buffers: shared hit=22723 read=21954 written=23
+                            ->  Bitmap Index Scan on idx_jobs_company_status  (cost=0.00..4.50 rows=11 width=0) (actual time=0.001..0.001 rows=8.18 loops=4000)
+                                  Index Cond: (company_id = c.company_id)
+                                  Index Searches: 4000
+                                  Buffers: shared hit=12022
+                      ->  Index Scan using idx_applications_job_status on applications a  (cost=0.43..28.17 rows=1 width=8) (actual time=0.027..0.028 rows=0.55 loops=29355)
+                            Index Cond: (job_id = j_1.job_id)
+                            Filter: (applied_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone)
+                            Rows Removed by Filter: 9
+                            Index Searches: 29355
+                            Buffers: shared hit=185947 read=194870 dirtied=312 written=217
+Planning:
+  Buffers: shared hit=390 read=44
+Planning Time: 0.979 ms
+Execution Time: 904.720 ms
+=== R19 run 2 ===
+Sort  (cost=1456460.96..1456470.91 rows=3980 width=45) (actual time=500.666..500.774 rows=4000.00 loops=1)
+  Sort Key: ((SubPlan 2)) DESC
+  Sort Method: quicksort  Memory: 350kB
+  Buffers: shared hit=224968 read=214566
+  ->  Seq Scan on companies c  (cost=0.00..1456222.99 rows=3980 width=45) (actual time=5.369..500.084 rows=4000.00 loops=1)
+        Filter: ((industry)::text = 'IT Services'::text)
+        Rows Removed by Filter: 36000
+        Buffers: shared hit=224965 read=214566
+        SubPlan 1
+          ->  Aggregate  (cost=8.44..8.45 rows=1 width=8) (actual time=0.002..0.002 rows=1.00 loops=4000)
+                Buffers: shared hit=11963 read=1522
+                ->  Index Only Scan using idx_jobs_company_status on jobs j  (cost=0.42..8.44 rows=1 width=0) (actual time=0.002..0.002 rows=0.89 loops=4000)
+                      Index Cond: ((company_id = c.company_id) AND (status = 'OPEN'::text))
+                      Heap Fetches: 1485
+                      Index Searches: 4000
+                      Buffers: shared hit=11963 read=1522
+        SubPlan 2
+          ->  Aggregate  (cost=357.16..357.17 rows=1 width=8) (actual time=0.122..0.122 rows=1.00 loops=4000)
+                Buffers: shared hit=213002 read=212492
+                ->  Nested Loop  (cost=4.94..357.14 rows=5 width=0) (actual time=0.113..0.122 rows=4.06 loops=4000)
+                      Buffers: shared hit=213002 read=212492
+                      ->  Bitmap Heap Scan on jobs j_1  (cost=4.51..47.12 rows=11 width=8) (actual time=0.006..0.012 rows=7.34 loops=4000)
+                            Recheck Cond: (company_id = c.company_id)
+                            Heap Blocks: exact=32655
+                            Buffers: shared hit=23026 read=21651
+                            ->  Bitmap Index Scan on idx_jobs_company_status  (cost=0.00..4.50 rows=11 width=0) (actual time=0.001..0.001 rows=8.18 loops=4000)
+                                  Index Cond: (company_id = c.company_id)
+                                  Index Searches: 4000
+                                  Buffers: shared hit=12022
+                      ->  Index Scan using idx_applications_job_status on applications a  (cost=0.43..28.17 rows=1 width=8) (actual time=0.014..0.015 rows=0.55 loops=29355)
+                            Index Cond: (job_id = j_1.job_id)
+                            Filter: (applied_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone)
+                            Rows Removed by Filter: 9
+                            Index Searches: 29355
+                            Buffers: shared hit=189976 read=190841
+Planning:
+  Buffers: shared hit=372 read=62
+Planning Time: 0.914 ms
+Execution Time: 500.873 ms
+=== R19 run 3 ===
+Sort  (cost=1456460.96..1456470.91 rows=3980 width=45) (actual time=494.623..494.718 rows=4000.00 loops=1)
+  Sort Key: ((SubPlan 2)) DESC
+  Sort Method: quicksort  Memory: 350kB
+  Buffers: shared hit=224963 read=214571
+  ->  Seq Scan on companies c  (cost=0.00..1456222.99 rows=3980 width=45) (actual time=5.503..494.051 rows=4000.00 loops=1)
+        Filter: ((industry)::text = 'IT Services'::text)
+        Rows Removed by Filter: 36000
+        Buffers: shared hit=224960 read=214571
+        SubPlan 1
+          ->  Aggregate  (cost=8.44..8.45 rows=1 width=8) (actual time=0.002..0.002 rows=1.00 loops=4000)
+                Buffers: shared hit=11963 read=1522
+                ->  Index Only Scan using idx_jobs_company_status on jobs j  (cost=0.42..8.44 rows=1 width=0) (actual time=0.002..0.002 rows=0.89 loops=4000)
+                      Index Cond: ((company_id = c.company_id) AND (status = 'OPEN'::text))
+                      Heap Fetches: 1485
+                      Index Searches: 4000
+                      Buffers: shared hit=11963 read=1522
+        SubPlan 2
+          ->  Aggregate  (cost=357.16..357.17 rows=1 width=8) (actual time=0.121..0.121 rows=1.00 loops=4000)
+                Buffers: shared hit=212997 read=212497
+                ->  Nested Loop  (cost=4.94..357.14 rows=5 width=0) (actual time=0.111..0.120 rows=4.06 loops=4000)
+                      Buffers: shared hit=212997 read=212497
+                      ->  Bitmap Heap Scan on jobs j_1  (cost=4.51..47.12 rows=11 width=8) (actual time=0.006..0.012 rows=7.34 loops=4000)
+                            Recheck Cond: (company_id = c.company_id)
+                            Heap Blocks: exact=32655
+                            Buffers: shared hit=23026 read=21651
+                            ->  Bitmap Index Scan on idx_jobs_company_status  (cost=0.00..4.50 rows=11 width=0) (actual time=0.001..0.001 rows=8.18 loops=4000)
+                                  Index Cond: (company_id = c.company_id)
+                                  Index Searches: 4000
+                                  Buffers: shared hit=12022
+                      ->  Index Scan using idx_applications_job_status on applications a  (cost=0.43..28.17 rows=1 width=8) (actual time=0.014..0.015 rows=0.55 loops=29355)
+                            Index Cond: (job_id = j_1.job_id)
+                            Filter: (applied_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone)
+                            Rows Removed by Filter: 9
+                            Index Searches: 29355
+                            Buffers: shared hit=189971 read=190846
+Planning:
+  Buffers: shared hit=372 read=62
+Planning Time: 0.943 ms
+Execution Time: 494.820 ms

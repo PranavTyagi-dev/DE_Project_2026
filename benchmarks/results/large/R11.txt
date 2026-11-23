@@ -1,0 +1,63 @@
+=== R11 run 1 ===
+Sort  (cost=8.55..8.55 rows=2 width=48) (actual time=0.443..0.443 rows=9.00 loops=1)
+  Sort Key: (max(viewed_at)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=10 read=3
+  ->  GroupAggregate  (cost=8.49..8.54 rows=2 width=48) (actual time=0.431..0.433 rows=9.00 loops=1)
+        Group Key: (COALESCE((viewer_id)::text, 'Someone in private mode'::text))
+        Buffers: shared hit=7 read=3
+        ->  Sort  (cost=8.49..8.49 rows=2 width=40) (actual time=0.426..0.426 rows=14.00 loops=1)
+              Sort Key: (COALESCE((viewer_id)::text, 'Someone in private mode'::text))
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=7 read=3
+              ->  Index Only Scan using idx_profile_views_viewed_time on profile_views v  (cost=0.43..8.48 rows=2 width=40) (actual time=0.409..0.410 rows=14.00 loops=1)
+                    Index Cond: ((viewed_id = 217) AND (viewed_at >= '2026-04-01 00:00:00+05:30'::timestamp with time zone))
+                    Heap Fetches: 0
+                    Index Searches: 1
+                    Buffers: shared hit=4 read=3
+Planning:
+  Buffers: shared hit=168 read=3 dirtied=1
+Planning Time: 0.559 ms
+Execution Time: 0.470 ms
+=== R11 run 2 ===
+Sort  (cost=8.55..8.55 rows=2 width=48) (actual time=0.053..0.054 rows=9.00 loops=1)
+  Sort Key: (max(viewed_at)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=13
+  ->  GroupAggregate  (cost=8.49..8.54 rows=2 width=48) (actual time=0.044..0.046 rows=9.00 loops=1)
+        Group Key: (COALESCE((viewer_id)::text, 'Someone in private mode'::text))
+        Buffers: shared hit=10
+        ->  Sort  (cost=8.49..8.49 rows=2 width=40) (actual time=0.040..0.041 rows=14.00 loops=1)
+              Sort Key: (COALESCE((viewer_id)::text, 'Someone in private mode'::text))
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=10
+              ->  Index Only Scan using idx_profile_views_viewed_time on profile_views v  (cost=0.43..8.48 rows=2 width=40) (actual time=0.026..0.028 rows=14.00 loops=1)
+                    Index Cond: ((viewed_id = 217) AND (viewed_at >= '2026-04-01 00:00:00+05:30'::timestamp with time zone))
+                    Heap Fetches: 0
+                    Index Searches: 1
+                    Buffers: shared hit=7
+Planning:
+  Buffers: shared hit=169
+Planning Time: 0.219 ms
+Execution Time: 0.077 ms
+=== R11 run 3 ===
+Sort  (cost=8.55..8.55 rows=2 width=48) (actual time=0.063..0.064 rows=9.00 loops=1)
+  Sort Key: (max(viewed_at)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=13
+  ->  GroupAggregate  (cost=8.49..8.54 rows=2 width=48) (actual time=0.046..0.048 rows=9.00 loops=1)
+        Group Key: (COALESCE((viewer_id)::text, 'Someone in private mode'::text))
+        Buffers: shared hit=10
+        ->  Sort  (cost=8.49..8.49 rows=2 width=40) (actual time=0.042..0.042 rows=14.00 loops=1)
+              Sort Key: (COALESCE((viewer_id)::text, 'Someone in private mode'::text))
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=10
+              ->  Index Only Scan using idx_profile_views_viewed_time on profile_views v  (cost=0.43..8.48 rows=2 width=40) (actual time=0.028..0.029 rows=14.00 loops=1)
+                    Index Cond: ((viewed_id = 217) AND (viewed_at >= '2026-04-01 00:00:00+05:30'::timestamp with time zone))
+                    Heap Fetches: 0
+                    Index Searches: 1
+                    Buffers: shared hit=7
+Planning:
+  Buffers: shared hit=169
+Planning Time: 0.242 ms
+Execution Time: 0.088 ms

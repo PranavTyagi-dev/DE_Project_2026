@@ -140,7 +140,7 @@ SELECT m.member_id, m.first_name, m.last_name
 FROM members m
 WHERE NOT EXISTS (
     SELECT 1
-    FROM profile_views v
+    FROM known_profile_viewers v
     WHERE v.viewer_id = m.member_id
 );
 

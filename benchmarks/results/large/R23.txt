@@ -1,0 +1,39 @@
+=== R23 run 1 ===
+Bitmap Heap Scan on members  (cost=131.43..8689.77 rows=4000 width=21) (actual time=0.338..0.338 rows=1.00 loops=1)
+  Recheck Cond: (lower((email)::text) = 'yash.sharma1023@gmail.com'::text)
+  Heap Blocks: exact=1
+  Buffers: shared read=4
+  ->  Bitmap Index Scan on idx_members_lower_email  (cost=0.00..130.43 rows=4000 width=0) (actual time=0.316..0.316 rows=1.00 loops=1)
+        Index Cond: (lower((email)::text) = 'yash.sharma1023@gmail.com'::text)
+        Index Searches: 1
+        Buffers: shared read=3
+Planning:
+  Buffers: shared hit=95 read=8
+Planning Time: 0.247 ms
+Execution Time: 0.356 ms
+=== R23 run 2 ===
+Bitmap Heap Scan on members  (cost=131.43..8689.77 rows=4000 width=21) (actual time=0.017..0.017 rows=1.00 loops=1)
+  Recheck Cond: (lower((email)::text) = 'yash.sharma1023@gmail.com'::text)
+  Heap Blocks: exact=1
+  Buffers: shared hit=4
+  ->  Bitmap Index Scan on idx_members_lower_email  (cost=0.00..130.43 rows=4000 width=0) (actual time=0.014..0.014 rows=1.00 loops=1)
+        Index Cond: (lower((email)::text) = 'yash.sharma1023@gmail.com'::text)
+        Index Searches: 1
+        Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=103
+Planning Time: 0.174 ms
+Execution Time: 0.033 ms
+=== R23 run 3 ===
+Bitmap Heap Scan on members  (cost=131.43..8689.77 rows=4000 width=21) (actual time=0.015..0.015 rows=1.00 loops=1)
+  Recheck Cond: (lower((email)::text) = 'yash.sharma1023@gmail.com'::text)
+  Heap Blocks: exact=1
+  Buffers: shared hit=4
+  ->  Bitmap Index Scan on idx_members_lower_email  (cost=0.00..130.43 rows=4000 width=0) (actual time=0.012..0.012 rows=1.00 loops=1)
+        Index Cond: (lower((email)::text) = 'yash.sharma1023@gmail.com'::text)
+        Index Searches: 1
+        Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=103
+Planning Time: 0.174 ms
+Execution Time: 0.032 ms

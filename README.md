@@ -329,7 +329,7 @@ Your optimizations worked on 149,984 job applications. Next year the business ex
 By **Thu 19 Nov 2026**, faculty will release **`large_data.zip`**: the same 12 CSV files with about **20× the rows** (≈ 3,000,000 applications, ≈ 4,000,000 profile views, ≈ 4,399,000 connections, ≈ 1,999,000 positions, ≈ 800,000 members). Until then, work on the design part of the report.
 
 ### 5.1 What to do with the large dataset
-1. Create a new database. Run **your** `01_schema.sql`, load `large_data/` with your load script (change the folder name only), then run **your** `05_indexes.sql` and `ANALYZE`.
+1. Create a new database. Run **your** `01_schema.sql`, load `large_data/` with your load script (change the folder name only), then run **your** `05_indexes.sql` and `ANALYZE`. If your optimized R13 uses the large-scale distinct-viewer summary, also run `sql/07_large_scale_support.sql` after loading.
 2. Run your **optimized** queries (`sql/06_optimized_queries.sql`). **Do not run the original 30 on the large data.** Some of them could run for a very long time.
    - R22 pages with `OFFSET`; if you replaced it with keyset pagination, explain how the "last seen" value is chosen for the large data.
 3. Record the times and compare with your Phase 4 results on the seed data.
@@ -385,6 +385,7 @@ linkedin-dbms-<team-no>/
 │   ├── 02_load_data.sql
 │   ├── 05_indexes.sql
 │   ├── 06_optimized_queries.sql
+│   ├── 07_large_scale_support.sql
 │   └── 08_partitioning.sql
 ├── queries/
 │   └── workload_30.sql                # given; do not edit

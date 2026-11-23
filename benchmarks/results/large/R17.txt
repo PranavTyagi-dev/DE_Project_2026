@@ -1,0 +1,150 @@
+=== R17 run 1 ===
+Limit  (cost=230039.81..230039.85 rows=15 width=29) (actual time=687.146..687.148 rows=15.00 loops=1)
+  Buffers: shared hit=35261 read=29253 written=2751
+  ->  Sort  (cost=230039.81..230039.94 rows=50 width=29) (actual time=687.146..687.147 rows=15.00 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: quicksort  Memory: 26kB
+        Buffers: shared hit=35261 read=29253 written=2751
+        ->  GroupAggregate  (cost=230037.71..230038.58 rows=50 width=29) (actual time=687.042..687.140 rows=20.00 loops=1)
+              Group Key: nxt.company_name
+              Buffers: shared hit=35258 read=29253 written=2751
+              ->  Sort  (cost=230037.71..230037.83 rows=50 width=21) (actual time=687.029..687.071 rows=2390.00 loops=1)
+                    Sort Key: nxt.company_name
+                    Sort Method: quicksort  Memory: 97kB
+                    Buffers: shared hit=35258 read=29253 written=2751
+                    ->  Nested Loop  (cost=9.45..230036.30 rows=50 width=21) (actual time=0.633..686.072 rows=2390.00 loops=1)
+                          Buffers: shared hit=35255 read=29253 written=2751
+                          ->  Hash Join  (cost=9.16..230020.86 rows=50 width=8) (actual time=0.626..684.491 rows=2390.00 loops=1)
+                                Hash Cond: (t.company_id = cur.company_id)
+                                Buffers: shared hit=28086 read=29252 written=2751
+                                ->  Subquery Scan on t  (cost=0.71..224791.26 rows=1988798 width=16) (actual time=0.028..650.094 rows=1198792.00 loops=1)
+                                      Filter: (t.next_company_id <> t.company_id)
+                                      Rows Removed by Filter: 800000
+                                      Buffers: shared hit=28085 read=29249 written=2751
+                                      ->  WindowAgg  (cost=0.71..199806.36 rows=1998792 width=28) (actual time=0.028..591.360 rows=1998792.00 loops=1)
+                                            Window: w1 AS (PARTITION BY p.member_id ORDER BY p.start_date)
+                                            Storage: Memory  Maximum Storage: 17kB
+                                            Buffers: shared hit=28085 read=29249 written=2751
+                                            ->  Incremental Sort  (cost=0.61..164827.50 rows=1998792 width=20) (actual time=0.023..326.382 rows=1998792.00 loops=1)
+                                                  Sort Key: p.member_id, p.start_date
+                                                  Presorted Key: p.member_id
+                                                  Full-sort Groups: 60001  Sort Method: quicksort  Average Memory: 26kB  Peak Memory: 26kB
+                                                  Buffers: shared hit=28085 read=29249 written=2751
+                                                  ->  Index Scan using idx_positions_member_start on positions p  (cost=0.43..110695.49 rows=1998792 width=20) (actual time=0.013..200.288 rows=1998792.00 loops=1)
+                                                        Index Searches: 1
+                                                        Buffers: shared hit=28082 read=29249 written=2751
+                                ->  Hash  (cost=8.43..8.43 rows=1 width=8) (actual time=0.280..0.281 rows=1.00 loops=1)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                      Buffers: shared hit=1 read=3
+                                      ->  Index Scan using idx_companies_name on companies cur  (cost=0.41..8.43 rows=1 width=8) (actual time=0.276..0.277 rows=1.00 loops=1)
+                                            Index Cond: ((company_name)::text = 'TCS'::text)
+                                            Index Searches: 1
+                                            Buffers: shared hit=1 read=3
+                          ->  Index Scan using companies_pkey on companies nxt  (cost=0.29..0.31 rows=1 width=29) (actual time=0.001..0.001 rows=1.00 loops=2390)
+                                Index Cond: (company_id = t.next_company_id)
+                                Index Searches: 2390
+                                Buffers: shared hit=7169 read=1
+Planning:
+  Buffers: shared hit=198 read=10
+Planning Time: 0.494 ms
+Execution Time: 687.186 ms
+=== R17 run 2 ===
+Limit  (cost=230039.81..230039.85 rows=15 width=29) (actual time=683.518..683.520 rows=15.00 loops=1)
+  Buffers: shared hit=35261 read=29253
+  ->  Sort  (cost=230039.81..230039.94 rows=50 width=29) (actual time=683.518..683.519 rows=15.00 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: quicksort  Memory: 26kB
+        Buffers: shared hit=35261 read=29253
+        ->  GroupAggregate  (cost=230037.71..230038.58 rows=50 width=29) (actual time=683.419..683.512 rows=20.00 loops=1)
+              Group Key: nxt.company_name
+              Buffers: shared hit=35258 read=29253
+              ->  Sort  (cost=230037.71..230037.83 rows=50 width=21) (actual time=683.407..683.448 rows=2390.00 loops=1)
+                    Sort Key: nxt.company_name
+                    Sort Method: quicksort  Memory: 97kB
+                    Buffers: shared hit=35258 read=29253
+                    ->  Nested Loop  (cost=9.45..230036.30 rows=50 width=21) (actual time=0.264..682.443 rows=2390.00 loops=1)
+                          Buffers: shared hit=35255 read=29253
+                          ->  Hash Join  (cost=9.16..230020.86 rows=50 width=8) (actual time=0.256..680.877 rows=2390.00 loops=1)
+                                Hash Cond: (t.company_id = cur.company_id)
+                                Buffers: shared hit=28085 read=29253
+                                ->  Subquery Scan on t  (cost=0.71..224791.26 rows=1988798 width=16) (actual time=0.026..646.530 rows=1198792.00 loops=1)
+                                      Filter: (t.next_company_id <> t.company_id)
+                                      Rows Removed by Filter: 800000
+                                      Buffers: shared hit=28085 read=29249
+                                      ->  WindowAgg  (cost=0.71..199806.36 rows=1998792 width=28) (actual time=0.025..587.732 rows=1998792.00 loops=1)
+                                            Window: w1 AS (PARTITION BY p.member_id ORDER BY p.start_date)
+                                            Storage: Memory  Maximum Storage: 17kB
+                                            Buffers: shared hit=28085 read=29249
+                                            ->  Incremental Sort  (cost=0.61..164827.50 rows=1998792 width=20) (actual time=0.022..317.366 rows=1998792.00 loops=1)
+                                                  Sort Key: p.member_id, p.start_date
+                                                  Presorted Key: p.member_id
+                                                  Full-sort Groups: 60001  Sort Method: quicksort  Average Memory: 26kB  Peak Memory: 26kB
+                                                  Buffers: shared hit=28085 read=29249
+                                                  ->  Index Scan using idx_positions_member_start on positions p  (cost=0.43..110695.49 rows=1998792 width=20) (actual time=0.013..189.635 rows=1998792.00 loops=1)
+                                                        Index Searches: 1
+                                                        Buffers: shared hit=28082 read=29249
+                                ->  Hash  (cost=8.43..8.43 rows=1 width=8) (actual time=0.020..0.020 rows=1.00 loops=1)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                      Buffers: shared read=4
+                                      ->  Index Scan using idx_companies_name on companies cur  (cost=0.41..8.43 rows=1 width=8) (actual time=0.017..0.018 rows=1.00 loops=1)
+                                            Index Cond: ((company_name)::text = 'TCS'::text)
+                                            Index Searches: 1
+                                            Buffers: shared read=4
+                          ->  Index Scan using companies_pkey on companies nxt  (cost=0.29..0.31 rows=1 width=29) (actual time=0.001..0.001 rows=1.00 loops=2390)
+                                Index Cond: (company_id = t.next_company_id)
+                                Index Searches: 2390
+                                Buffers: shared hit=7170
+Planning:
+  Buffers: shared hit=197 read=11
+Planning Time: 0.424 ms
+Execution Time: 683.568 ms
+=== R17 run 3 ===
+Limit  (cost=230039.81..230039.85 rows=15 width=29) (actual time=682.336..682.338 rows=15.00 loops=1)
+  Buffers: shared hit=35261 read=29253
+  ->  Sort  (cost=230039.81..230039.94 rows=50 width=29) (actual time=682.336..682.337 rows=15.00 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: quicksort  Memory: 26kB
+        Buffers: shared hit=35261 read=29253
+        ->  GroupAggregate  (cost=230037.71..230038.58 rows=50 width=29) (actual time=682.226..682.324 rows=20.00 loops=1)
+              Group Key: nxt.company_name
+              Buffers: shared hit=35258 read=29253
+              ->  Sort  (cost=230037.71..230037.83 rows=50 width=21) (actual time=682.214..682.262 rows=2390.00 loops=1)
+                    Sort Key: nxt.company_name
+                    Sort Method: quicksort  Memory: 97kB
+                    Buffers: shared hit=35258 read=29253
+                    ->  Nested Loop  (cost=9.45..230036.30 rows=50 width=21) (actual time=0.267..681.230 rows=2390.00 loops=1)
+                          Buffers: shared hit=35255 read=29253
+                          ->  Hash Join  (cost=9.16..230020.86 rows=50 width=8) (actual time=0.260..679.629 rows=2390.00 loops=1)
+                                Hash Cond: (t.company_id = cur.company_id)
+                                Buffers: shared hit=28085 read=29253
+                                ->  Subquery Scan on t  (cost=0.71..224791.26 rows=1988798 width=16) (actual time=0.026..644.722 rows=1198792.00 loops=1)
+                                      Filter: (t.next_company_id <> t.company_id)
+                                      Rows Removed by Filter: 800000
+                                      Buffers: shared hit=28085 read=29249
+                                      ->  WindowAgg  (cost=0.71..199806.36 rows=1998792 width=28) (actual time=0.026..585.034 rows=1998792.00 loops=1)
+                                            Window: w1 AS (PARTITION BY p.member_id ORDER BY p.start_date)
+                                            Storage: Memory  Maximum Storage: 17kB
+                                            Buffers: shared hit=28085 read=29249
+                                            ->  Incremental Sort  (cost=0.61..164827.50 rows=1998792 width=20) (actual time=0.022..316.005 rows=1998792.00 loops=1)
+                                                  Sort Key: p.member_id, p.start_date
+                                                  Presorted Key: p.member_id
+                                                  Full-sort Groups: 60001  Sort Method: quicksort  Average Memory: 26kB  Peak Memory: 26kB
+                                                  Buffers: shared hit=28085 read=29249
+                                                  ->  Index Scan using idx_positions_member_start on positions p  (cost=0.43..110695.49 rows=1998792 width=20) (actual time=0.012..188.009 rows=1998792.00 loops=1)
+                                                        Index Searches: 1
+                                                        Buffers: shared hit=28082 read=29249
+                                ->  Hash  (cost=8.43..8.43 rows=1 width=8) (actual time=0.019..0.019 rows=1.00 loops=1)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                      Buffers: shared read=4
+                                      ->  Index Scan using idx_companies_name on companies cur  (cost=0.41..8.43 rows=1 width=8) (actual time=0.016..0.016 rows=1.00 loops=1)
+                                            Index Cond: ((company_name)::text = 'TCS'::text)
+                                            Index Searches: 1
+                                            Buffers: shared read=4
+                          ->  Index Scan using companies_pkey on companies nxt  (cost=0.29..0.31 rows=1 width=29) (actual time=0.001..0.001 rows=1.00 loops=2390)
+                                Index Cond: (company_id = t.next_company_id)
+                                Index Searches: 2390
+                                Buffers: shared hit=7170
+Planning:
+  Buffers: shared hit=177 read=31
+Planning Time: 1.402 ms
+Execution Time: 682.381 ms
